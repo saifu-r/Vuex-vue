@@ -24,13 +24,14 @@ export default defineComponent({
     const counter= ref(store.getters.normalizedCounter)
 
     const addOne= ()=>{
-        store.commit('incrementCounter')
+        // store.commit('incrementCounter')
+        store.dispatch('incrementCounter')
     }
 
     const addEleven= ()=>{
         // store.commit('increaseCounter', {value: 10})
 
-        store.commit({
+        store.dispatch({
             type: 'increaseCounter',
             value: 11
         })
