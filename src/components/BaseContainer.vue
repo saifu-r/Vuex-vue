@@ -8,8 +8,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import {useStore} from 'vuex'
+import {mapGetters} from 'vuex' // we can't use mapGetters in composition api
 
 export default defineComponent({
     props:{
@@ -21,7 +22,9 @@ export default defineComponent({
   setup() {
     const store= useStore()
 
-    const counter= ref(store.getters.normalizedCounter)
+    const counter= computed(()=> store.state.counter)
+    
+
 
     const addOne= ()=>{
         // store.commit('incrementCounter')
@@ -36,10 +39,9 @@ export default defineComponent({
             value: 11
         })
     }
-
-    store.watch(()=>store.getters.normalizedCounter, (newValue)=>{
-        counter.value= newValue
-    })
+    // store.watch(()=>store.getters.normalizedCounter, (newValue)=>{
+    //     counter.value= newValue
+    // })
 
     return {counter, addOne, addEleven}
   },

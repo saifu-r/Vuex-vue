@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 const store = createStore({
   state: {
     counter: 0,
+    isLoggedIn: false
   },
   mutations: {
     incrementCounter(state) {
@@ -11,6 +12,31 @@ const store = createStore({
     increaseCounter(state, payloads) {
       state.counter = state.counter + payloads.value;
     },
+    logIn(state, payload){
+        state.isLoggedIn= payload.value
+    },
+    logOut(state, payload){
+        state.isLoggedIn= payload.value
+    }
+   
+  },
+  actions: {
+    incrementCounter(context) {
+        setTimeout(function(){
+            context.commit('incrementCounter')
+        }, 2000)
+    },
+    increaseCounter(context, payload){
+        context.commit('increaseCounter', payload)
+    },
+
+    logIn(context){
+        context.commit('logIn',{value: true})
+    },
+    logOut(context){
+        context.commit('logOut', {value: false})
+    }
+
   },
   getters: {
     finalCounterFunction(state) {
@@ -26,19 +52,11 @@ const store = createStore({
       }
       return finalCounter;
     },
-  },
-  actions: {
-    incrementCounter(context) {
-        setTimeout(function(){
-            context.commit('incrementCounter')
-        }, 2000)
-    },
-    increaseCounter(context, payload){
-        context.commit('increaseCounter', payload)
-
+    isloggedInFunction(state){
+        return state.isLoggedIn
     }
-
   },
+  
 });
 
 export default store;
